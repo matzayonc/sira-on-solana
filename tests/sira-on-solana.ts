@@ -1,7 +1,7 @@
 import * as anchor from "@coral-xyz/anchor"
 import { Program } from "@coral-xyz/anchor"
 import { SiraOnSolana } from "../target/types/sira_on_solana"
-import { Keypair, PublicKey } from "@solana/web3.js"
+import { Connection, Keypair, PublicKey } from "@solana/web3.js"
 import { assert } from "chai"
 
 // @ts-ignore
@@ -21,12 +21,6 @@ describe("sira-on-solana", () => {
 		const name = "DotWave"
 		const krs = "1234"
 
-		// const [issuer, issuerBump] = await PublicKey.findProgramAddress(
-		// 	[anchor.utils.bytes.utf8.encode("issuer"), signer.toBuffer()],
-		// 	program.programId
-		// )
-
-		// Add your test here.
 		const tx = await program.methods
 			.initialize(name, krs)
 			.accounts({
@@ -42,5 +36,10 @@ describe("sira-on-solana", () => {
 
 		assert.equal(issuerAccount.name, name)
 		assert.equal(issuerAccount.krs, krs)
+
+		const issuers = await program.account.issuer.all()
+		assert.equal(issuers.length, 1)
+		assert.equal(issuers[0].account.name, name)
+		assert.equal(issuers[0].account.krs, krs)
 	})
 })

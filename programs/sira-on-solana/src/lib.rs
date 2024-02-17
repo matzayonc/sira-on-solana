@@ -27,6 +27,18 @@ impl Issuer {
     }
 }
 
+#[account]
+pub struct Shareholder {
+    pub name: String,
+    pub krs: String,
+}
+
+impl Shareholder {
+    pub fn new(&mut self, name: String, krs: String) {
+        *self = Self { name, krs };
+    }
+}
+
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(init, payer = signer, space = 8 + size_of::<Issuer>())]
