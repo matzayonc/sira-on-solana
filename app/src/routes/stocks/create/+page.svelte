@@ -45,7 +45,7 @@
 		const issuer = Keypair.generate();
 		tx.add(
 			await program.methods
-				.createIssuer(stockName, krs, value)
+				.createIssuer(stockName, krs, value, false)
 				.accounts({
 					signer: wallet.publicKey!,
 					issuer: issuer.publicKey,

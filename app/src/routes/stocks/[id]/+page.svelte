@@ -34,7 +34,7 @@
 
 		tx.add(
 			await program.methods
-				.createShareholder(holdingBump, new anchor.BN(10))
+				.createShareholder(holdingBump, new anchor.BN(10), false)
 				.accounts({
 					shareholder: holding,
 					issuer: stock.public_key,
