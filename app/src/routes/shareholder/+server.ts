@@ -27,12 +27,9 @@ export async function GET({ url }) {
 				return new Response('Issuer not found', { status: 404 });
 			}
 
-			const emissionDate = new Date(s.account.timestamp.toNumber());
-			const registrationDate = new Date(issuer.account.timestamp.toNumber());
+			const emissionDate = new Date(issuer.account.timestamp.toNumber());
 
 			return {
-				issuer_name: issuer.account.name,
-				registration_date: registrationDate.toISOString(),
 				owner_name: s.account.name,
 				paper_number_from: s.account.first.toNumber(),
 				paper_number_to: s.account.amount.add(s.account.first).toNumber(),

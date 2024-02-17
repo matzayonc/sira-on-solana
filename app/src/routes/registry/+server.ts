@@ -2,8 +2,8 @@ import { anchorStore } from '$stores/anchorStore';
 import { get } from 'svelte/store';
 
 export async function GET({ url }) {
-	const owner = url.searchParams.get('owner');
-	if (!owner) {
+	const issuer = url.searchParams.get('issuer');
+	if (!issuer) {
 		return new Response('Missing owner', { status: 400 });
 	}
 
@@ -12,8 +12,8 @@ export async function GET({ url }) {
 	const stakeholders = await program.account.shareholder.all([
 		{
 			memcmp: {
-				offset: 8,
-				bytes: owner
+				offset: 8 + 32,
+				bytes: issuer
 			}
 		}
 	]);
@@ -27,9 +27,12 @@ export async function GET({ url }) {
 				return new Response('Issuer not found', { status: 404 });
 			}
 
-			const emissionDate = new Date(issuer.account.timestamp.toNumber());
+			const emissionDate = new Date(s.account.timestamp.toNumber());
+			const registrationDate = new Date(issuer.account.timestamp.toNumber());
 
 			return {
+				issuer_name: issuer.account.name,
+				registration_date: registrationDate.toISOString(),
 				owner_name: s.account.name,
 				paper_number_from: s.account.first.toNumber(),
 				paper_number_to: s.account.amount.add(s.account.first).toNumber(),
