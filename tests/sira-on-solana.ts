@@ -1,9 +1,9 @@
 import * as anchor from "@coral-xyz/anchor"
 import { Program } from "@coral-xyz/anchor"
-import { SiraOnSolana } from "../target/types/sira_on_solana"
 import { Keypair, PublicKey } from "@solana/web3.js"
 import { assert } from "chai"
 import { BN } from "bn.js"
+import { SiraOnSolana } from "../target/types/sira_on_solana"
 
 // @ts-ignore
 const signer = anchor.getProvider().wallet.publicKey
@@ -45,7 +45,7 @@ describe("Issuing", () => {
 		const name = "DotWave"
 		const krs = "1234"
 		await program.methods
-			.createIssuer(name, krs)
+			.createIssuer(name, krs, 1.2)
 			.accounts({
 				signer,
 				issuer: issuer.publicKey,
@@ -128,9 +128,28 @@ describe("Issuing", () => {
 				},
 			},
 		])
+
 		assert.equal(firstStakeholder.length, 1)
 		assert.ok(
 			firstStakeholder[0].account.owner.equals(shareholder.publicKey)
 		)
+
+		await program.methods
+			.transfer(new BN(4))
+			.accounts({
+				state,
+				source: anotherHolding,
+				destination: holding,
+				signer: anotherShareholder.publicKey,
+				owner: shareholder.publicKey,
+			})
+			.signers([anotherShareholder])
+			.rpc()
 	})
 })
+function holdingsByOwner(
+	program: anchor.Program<SiraOnSolana>,
+	publicKey: anchor.web3.PublicKey
+) {
+	throw new Error("Function not implemented.")
+}
