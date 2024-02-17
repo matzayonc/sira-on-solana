@@ -6,7 +6,7 @@
 	import type { Commitment, ConnectionConfig } from '@solana/web3.js';
 	import { Connection, PublicKey } from '@solana/web3.js';
 
-	const PROGRAM_ID = new PublicKey('4kKhxNRFxnxXeYn1kfjkkzWpUW91rcuERgaV8qobhk3M');
+	const PROGRAM_ID = new PublicKey('Drnzgs85HDf8NRbV2nrtq4qYgA3VbfgC5pvNeMBkWjrC');
 
 	export let network: string,
 		config: Commitment | ConnectionConfig | undefined = 'processed';

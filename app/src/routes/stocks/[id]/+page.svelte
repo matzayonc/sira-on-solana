@@ -4,8 +4,10 @@
 	import { stocks } from '$src/db/db';
 	import { anchorStore } from '$src/stores/anchorStore';
 	import { walletStore } from '$src/stores/walletStore';
+	import { web3Store } from '$src/stores/web3Store';
+	import { useSignAndSendTransaction } from '$src/utils/wallet/useSignAndSendTx';
 	import * as anchor from '@coral-xyz/anchor';
-	import { PublicKey } from '@solana/web3.js';
+	import { PublicKey, Transaction } from '@solana/web3.js';
 	import { get } from 'svelte/store';
 
 	$: ({ params } = $page);
@@ -14,30 +16,35 @@
 	let sharesToBuy: number;
 
 	const onStockBuy = async () => {
-		// TODO: Implement buying stocks
 		const { program } = get(anchorStore);
-		const { publicKey } = get(walletStore);
+		const { connection } = get(web3Store);
+		const wallet = get(walletStore);
 
-		if (!publicKey) {
-			alert('Please connect your wallet');
+		if (!wallet.publicKey) {
 			return;
 		}
 
 		const [holding, holdingBump] = await PublicKey.findProgramAddress(
-			[anchor.utils.bytes.utf8.encode('holding'), publicKey.toBuffer()],
+			[anchor.utils.bytes.utf8.encode('holding'), wallet.publicKey.toBuffer()],
 			program.programId
 		);
 
-		// await program.methods
-		// 	.createShareholder(holdingBump, new BN(sharesToBuy))
-		// 	.accounts({
-		// 		shareholder: holding,
-		// 		issuer: issuer.publicKey,
-		// 		signer: signer.publicKey,
-		// 		owner: shareholder.publicKey,
-		// 		state
-		// 	})
-		// 	.rpc();
+		const tx = new Transaction();
+
+		tx.add(
+			await program.methods
+				.createShareholder(holdingBump, new anchor.BN(10))
+				.accounts({
+					shareholder: holding,
+					issuer: new PublicKey('FgEinDLzidRHirdSKQzAERqBPKyBqjdWvjaE3QaARofd'),
+					signer: wallet.publicKey!,
+					owner: wallet.publicKey,
+					state: new PublicKey('7XvP4GS9aTWFukHc26AEv2ccUYGb1zY9Tq3paszh9K52')
+				})
+				.instruction()
+		);
+
+		await useSignAndSendTransaction(connection, wallet, tx);
 	};
 </script>
 
