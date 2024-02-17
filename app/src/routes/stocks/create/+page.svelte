@@ -10,22 +10,22 @@
 	let stockName: string;
 	let krs: string;
 
-	const onStateInit = async () => {
-		const { program } = get(anchorStore);
-		const { connection } = get(web3Store);
-		const wallet = get(walletStore);
+	// const onStateInit = async () => {
+	// 	const { program } = get(anchorStore);
+	// 	const { connection } = get(web3Store);
+	// 	const wallet = get(walletStore);
 
-		const [state, stateBump] = await PublicKey.findProgramAddress(
-			[anchor.utils.bytes.utf8.encode('state')],
-			program.programId
-		);
+	// 	const [state, stateBump] = await PublicKey.findProgramAddress(
+	// 		[anchor.utils.bytes.utf8.encode('state')],
+	// 		program.programId
+	// 	);
 
-		const tx = new Transaction();
+	// 	const tx = new Transaction();
 
-		tx.add(await program.methods.init(stateBump).accounts({ state }).instruction());
+	// 	tx.add(await program.methods.init(stateBump).accounts({ state }).instruction());
 
-		await useSignAndSendTransaction(connection, wallet, tx);
-	};
+	// 	await useSignAndSendTransaction(connection, wallet, tx);
+	// };
 
 	const onIssuerInit = async () => {
 		const { program } = get(anchorStore);
