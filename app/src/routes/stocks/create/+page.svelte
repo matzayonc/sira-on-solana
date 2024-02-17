@@ -13,22 +13,22 @@
 	let krs: string;
 	let value: number;
 
-	// const onStateInit = async () => {
-	// 	const { program } = get(anchorStore);
-	// 	const { connection } = get(web3Store);
-	// 	const wallet = get(walletStore);
+	const onStateInit = async () => {
+		const { program } = get(anchorStore);
+		const { connection } = get(web3Store);
+		const wallet = get(walletStore);
 
-	// 	const [state, stateBump] = await PublicKey.findProgramAddress(
-	// 		[anchor.utils.bytes.utf8.encode('state')],
-	// 		program.programId
-	// 	);
+		const [state, stateBump] = await PublicKey.findProgramAddress(
+			[anchor.utils.bytes.utf8.encode('state')],
+			program.programId
+		);
 
-	// 	const tx = new Transaction();
+		const tx = new Transaction();
 
-	// 	tx.add(await program.methods.init(stateBump).accounts({ state }).instruction());
+		tx.add(await program.methods.init(stateBump).accounts({ state }).instruction());
 
-	// 	await useSignAndSendTransaction(connection, wallet, tx);
-	// };
+		await useSignAndSendTransaction(connection, wallet, tx);
+	};
 
 	const onIssuerInit = async () => {
 		const { program } = get(anchorStore);
@@ -73,7 +73,7 @@
 
 			<button
 				class="mt-10 w-2/3 inline-block border-spacing-10 rounded-3xl py-3 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
-				onclick={onIssuerInit}>Create</button
+				onclick={onStateInit}>Create</button
 			>
 		</div>
 	</main>
