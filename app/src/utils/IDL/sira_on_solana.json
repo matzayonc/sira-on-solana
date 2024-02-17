@@ -375,8 +375,5 @@
       "name": "DestinationIsLocked",
       "msg": "Destination account was locked by issuer"
     }
-  ],
-  "metadata": {
-    "address": "Gyj4C4xfN1ottpvSfXAUeGcHdnPafZ2psLBDfWgwLPwC"
-  }
+  ]
 }
