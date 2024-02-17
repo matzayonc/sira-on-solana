@@ -11,7 +11,7 @@
 	$: {
 		content = 'Connect Wallet';
 		if (wallet) content = 'Connect';
-		if (connecting) content = 'Connecting ...';
+		if (connecting) content = 'Connecting';
 		if (connected) content = 'Connected';
 	}
 
