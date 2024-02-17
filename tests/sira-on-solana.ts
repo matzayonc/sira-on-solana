@@ -8,12 +8,13 @@ import { BN } from "bn.js"
 // @ts-ignore
 const signer = anchor.getProvider().wallet.publicKey
 
-describe("Pausing", () => {
+describe("Issuing", () => {
+	// Configure the client to use the local cluster.
 	anchor.setProvider(anchor.AnchorProvider.env())
 
 	const program = anchor.workspace.SiraOnSolana as Program<SiraOnSolana>
 
-	it("can pause", async () => {
+	it("the whole flow", async () => {
 		const [state, stateBump] = await PublicKey.findProgramAddress(
 			[anchor.utils.bytes.utf8.encode("state")],
 			program.programId
@@ -26,6 +27,7 @@ describe("Pausing", () => {
 		assert.ok(stateAccount.authority.equals(signer))
 		assert.equal(stateAccount.bump, stateBump)
 
+		// pausing
 		await program.methods.pause().accounts({ state }).rpc()
 
 		const pausedStateAccount = await program.account.state.fetch(state)
@@ -37,25 +39,17 @@ describe("Pausing", () => {
 		assert.ok(!stateAccount.paused)
 		assert.ok(stateAccount.authority.equals(signer))
 		assert.equal(stateAccount.bump, stateBump)
-	})
-})
 
-describe("Issuing", () => {
-	// Configure the client to use the local cluster.
-	anchor.setProvider(anchor.AnchorProvider.env())
-
-	const program = anchor.workspace.SiraOnSolana as Program<SiraOnSolana>
-
-	it("the whole flow", async () => {
-		const provider = anchor.getProvider()
+		// issuing
 		const issuer = Keypair.generate()
 		const name = "DotWave"
 		const krs = "1234"
-		const tx = await program.methods
+		await program.methods
 			.createIssuer(name, krs)
 			.accounts({
 				signer,
 				issuer: issuer.publicKey,
+				state,
 			})
 			.signers([issuer])
 			.rpc()
@@ -86,6 +80,7 @@ describe("Issuing", () => {
 				issuer: issuer.publicKey,
 				signer: signer.publicKey,
 				owner: shareholder.publicKey,
+				state,
 			})
 			.rpc()
 		const shareholderAccount = await program.account.shareholder.fetch(
@@ -114,6 +109,7 @@ describe("Issuing", () => {
 				issuer: issuer.publicKey,
 				signer: signer.publicKey,
 				owner: anotherShareholder.publicKey,
+				state,
 			})
 			.rpc()
 		const anotherShareholderAccount =

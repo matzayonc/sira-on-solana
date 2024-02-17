@@ -1,5 +1,6 @@
-pub mod actions;
-pub mod state;
+mod actions;
+mod errors;
+mod state;
 
 pub use actions::*;
 pub use state::*;
@@ -30,9 +31,17 @@ pub mod sira_on_solana {
 
     pub fn create_shareholder(
         ctx: Context<CreateShareholder>,
-        _bump: u8,
+        bump: u8,
         amount: u64,
     ) -> Result<()> {
-        ctx.accounts.handle(amount)
+        ctx.accounts.handle(bump, amount)
+    }
+
+    pub fn lock(ctx: Context<Lock>) -> Result<()> {
+        ctx.accounts.lock()
+    }
+
+    pub fn unlock(ctx: Context<Lock>) -> Result<()> {
+        ctx.accounts.unlock()
     }
 }

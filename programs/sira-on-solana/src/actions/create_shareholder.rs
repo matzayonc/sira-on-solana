@@ -2,11 +2,13 @@ use std::mem::size_of;
 
 use anchor_lang::prelude::*;
 
-use crate::{Issuer, Shareholder};
+use crate::{errors::Errors, Issuer, Shareholder, State};
 
 #[derive(Accounts)]
 #[instruction(bump: u8)]
 pub struct CreateShareholder<'info> {
+    #[account(mut, seeds = [b"state"], bump = state.bump)]
+    pub state: Account<'info, State>,
     #[account(init, 
         payer = signer, 
         space = 8 + size_of::<Issuer>(),
@@ -23,7 +25,8 @@ pub struct CreateShareholder<'info> {
 }
 
 impl<'info> CreateShareholder<'info> {
-    pub fn handle(&mut self, amount: u64) -> Result<()> {
+    pub fn handle(&mut self, bump: u8, amount: u64) -> Result<()> {
+        require!(!self.state.paused, Errors::SystemIsPaused);
         require_eq!(self.issuer.authority, self.signer.key());
 
         *self.shareholder = Shareholder {
@@ -31,6 +34,7 @@ impl<'info> CreateShareholder<'info> {
             issuer: self.issuer.key(),
             amount,
             locked: false,
+            bump
         };
 
         Ok(())
