@@ -1,43 +1,63 @@
 import * as anchor from "@coral-xyz/anchor"
 import { Program } from "@coral-xyz/anchor"
 import { SiraOnSolana } from "../target/types/sira_on_solana"
-import { Connection, Keypair, PublicKey } from "@solana/web3.js"
+import { Keypair, PublicKey } from "@solana/web3.js"
 import { assert } from "chai"
 import { BN } from "bn.js"
 
 // @ts-ignore
 const signer = anchor.getProvider().wallet.publicKey
 
-describe("sira-on-solana", () => {
+describe("Issuing", () => {
 	// Configure the client to use the local cluster.
 	anchor.setProvider(anchor.AnchorProvider.env())
 
 	const program = anchor.workspace.SiraOnSolana as Program<SiraOnSolana>
 
-	it("Is initialized!", async () => {
-		const provider = anchor.getProvider()
+	it("the whole flow", async () => {
+		const [state, stateBump] = await PublicKey.findProgramAddress(
+			[anchor.utils.bytes.utf8.encode("state")],
+			program.programId
+		)
 
+		await program.methods.init(stateBump).accounts({ state }).rpc()
+
+		const stateAccount = await program.account.state.fetch(state)
+		assert.ok(!stateAccount.paused)
+		assert.ok(stateAccount.authority.equals(signer))
+		assert.equal(stateAccount.bump, stateBump)
+
+		// pausing
+		await program.methods.pause().accounts({ state }).rpc()
+
+		const pausedStateAccount = await program.account.state.fetch(state)
+		assert.ok(pausedStateAccount.paused)
+		assert.ok(pausedStateAccount.authority.equals(signer))
+		assert.equal(pausedStateAccount.bump, stateBump)
+
+		await program.methods.unpause().accounts({ state }).rpc()
+		assert.ok(!stateAccount.paused)
+		assert.ok(stateAccount.authority.equals(signer))
+		assert.equal(stateAccount.bump, stateBump)
+
+		// issuing
 		const issuer = Keypair.generate()
-
 		const name = "DotWave"
 		const krs = "1234"
-
-		const tx = await program.methods
+		await program.methods
 			.createIssuer(name, krs)
 			.accounts({
 				signer,
 				issuer: issuer.publicKey,
+				state,
 			})
 			.signers([issuer])
 			.rpc()
-
 		const issuerAccount = await program.account.issuer.fetch(
 			issuer.publicKey
 		)
-
 		assert.equal(issuerAccount.name, name)
 		assert.equal(issuerAccount.krs, krs)
-
 		const issuers = await program.account.issuer.all()
 		assert.equal(issuers.length, 1)
 		assert.equal(issuers[0].account.name, name)
@@ -45,52 +65,60 @@ describe("sira-on-solana", () => {
 
 		// create a shareholder
 		const shareholder = Keypair.generate()
-		const holding = Keypair.generate()
+		const [holding, holdingBump] = await PublicKey.findProgramAddress(
+			[
+				anchor.utils.bytes.utf8.encode("holding"),
+				shareholder.publicKey.toBuffer(),
+			],
+			program.programId
+		)
 		const amount = 42
 		await program.methods
-			.createShareholder(shareholder.publicKey, new BN(amount))
+			.createShareholder(holdingBump, new BN(amount))
 			.accounts({
-				shareholder: holding.publicKey,
+				shareholder: holding,
 				issuer: issuer.publicKey,
 				signer: signer.publicKey,
+				owner: shareholder.publicKey,
+				state,
 			})
-			.signers([holding])
 			.rpc()
-
 		const shareholderAccount = await program.account.shareholder.fetch(
-			holding.publicKey
+			holding
 		)
-
 		assert.equal(shareholderAccount.amount.toNumber(), amount)
 		assert.ok(shareholderAccount.issuer.equals(issuer.publicKey))
 		assert.ok(shareholderAccount.owner.equals(shareholder.publicKey))
 
 		// create another shareholder
 		const anotherShareholder = Keypair.generate()
-		const anotherHolding = Keypair.generate()
+		const [anotherHolding, anotherHoldingBump] =
+			await PublicKey.findProgramAddress(
+				[
+					anchor.utils.bytes.utf8.encode("holding"),
+					anotherShareholder.publicKey.toBuffer(),
+				],
+				program.programId
+			)
+
 		const anotherAmount = 42
 		await program.methods
-			.createShareholder(
-				anotherShareholder.publicKey,
-				new BN(anotherAmount)
-			)
+			.createShareholder(anotherHoldingBump, new BN(anotherAmount))
 			.accounts({
-				shareholder: anotherHolding.publicKey,
+				shareholder: anotherHolding,
 				issuer: issuer.publicKey,
 				signer: signer.publicKey,
+				owner: anotherShareholder.publicKey,
+				state,
 			})
-			.signers([anotherHolding])
 			.rpc()
-
 		const anotherShareholderAccount =
-			await program.account.shareholder.fetch(anotherHolding.publicKey)
-
+			await program.account.shareholder.fetch(anotherHolding)
 		assert.equal(anotherShareholderAccount.amount.toNumber(), anotherAmount)
 		assert.ok(anotherShareholderAccount.issuer.equals(issuer.publicKey))
 		assert.ok(
 			anotherShareholderAccount.owner.equals(anotherShareholder.publicKey)
 		)
-
 		// fetch only the first shareholder
 		const firstStakeholder = await program.account.shareholder.all([
 			{
@@ -100,7 +128,6 @@ describe("sira-on-solana", () => {
 				},
 			},
 		])
-
 		assert.equal(firstStakeholder.length, 1)
 		assert.ok(
 			firstStakeholder[0].account.owner.equals(shareholder.publicKey)
