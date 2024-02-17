@@ -25,8 +25,13 @@ pub mod sira_on_solana {
         ctx.accounts.unpause()
     }
 
-    pub fn create_issuer(ctx: Context<CreateIssuer>, name: String, krs: String) -> Result<()> {
-        ctx.accounts.handle(name, krs)
+    pub fn create_issuer(
+        ctx: Context<CreateIssuer>,
+        name: String,
+        krs: String,
+        value: f64,
+    ) -> Result<()> {
+        ctx.accounts.handle(name, krs, value)
     }
 
     pub fn create_shareholder(
@@ -43,5 +48,9 @@ pub mod sira_on_solana {
 
     pub fn unlock(ctx: Context<Lock>) -> Result<()> {
         ctx.accounts.unlock()
+    }
+
+    pub fn transfer(ctx: Context<Transfer>, amount: u64) -> Result<()> {
+        ctx.accounts.handle(amount)
     }
 }

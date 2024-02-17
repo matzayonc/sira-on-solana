@@ -92,6 +92,10 @@ export type SiraOnSolana = {
         {
           "name": "krs",
           "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "f64"
         }
       ]
     },
@@ -137,10 +141,6 @@ export type SiraOnSolana = {
         {
           "name": "amount",
           "type": "u64"
-        },
-        {
-          "name": "value",
-          "type": "f64"
         }
       ]
     },
@@ -205,6 +205,42 @@ export type SiraOnSolana = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "transfer",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "source",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "destination",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -224,6 +260,10 @@ export type SiraOnSolana = {
           {
             "name": "authority",
             "type": "publicKey"
+          },
+          {
+            "name": "value",
+            "type": "f64"
           }
         ]
       }
@@ -244,10 +284,6 @@ export type SiraOnSolana = {
           {
             "name": "amount",
             "type": "u64"
-          },
-          {
-            "name": "value",
-            "type": "f64"
           },
           {
             "name": "locked",
@@ -404,6 +440,10 @@ export const IDL: SiraOnSolana = {
         {
           "name": "krs",
           "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "f64"
         }
       ]
     },
@@ -449,10 +489,6 @@ export const IDL: SiraOnSolana = {
         {
           "name": "amount",
           "type": "u64"
-        },
-        {
-          "name": "value",
-          "type": "f64"
         }
       ]
     },
@@ -517,6 +553,42 @@ export const IDL: SiraOnSolana = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "transfer",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "source",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "destination",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -536,6 +608,10 @@ export const IDL: SiraOnSolana = {
           {
             "name": "authority",
             "type": "publicKey"
+          },
+          {
+            "name": "value",
+            "type": "f64"
           }
         ]
       }
@@ -556,10 +632,6 @@ export const IDL: SiraOnSolana = {
           {
             "name": "amount",
             "type": "u64"
-          },
-          {
-            "name": "value",
-            "type": "f64"
           },
           {
             "name": "locked",
