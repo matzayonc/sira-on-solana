@@ -1,0 +1,14 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import '../components//Wallet/wallet.scss';
+
+body {
+	background-color: #f0f0f0;
+	color: black;
+}
+
+*:focus {
+	outline: none;
+}
