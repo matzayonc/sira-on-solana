@@ -6,6 +6,7 @@ const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
+
 	optimizeDeps: {
 		include: ['@project-serum/anchor', '@solana/web3.js', 'buffer']
 		// ... use the same implementation from the SvelteKit ui
