@@ -9,13 +9,11 @@ export async function GET() {
 	const parsed = JSON.stringify(
 		issuers.map((a) => {
 			return {
-				issuer_name: a.account.name,
-				issuer_krs_number: a.account.krs
+				public_key: a.publicKey.toString(),
+				...a.account
 			};
 		})
 	);
-
-	console.log();
 
 	return new Response(parsed, {
 		headers: {

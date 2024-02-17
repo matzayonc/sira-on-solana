@@ -1,17 +1,11 @@
 import { error } from '@sveltejs/kit';
 
-export type Issuer = {
-	authority: string;
-	krs: string;
-	name: string;
-	public_key: string;
-	value: number;
-};
+export type Issuer = { issuer_name: string; issuer_krs_number: string; public_key: string };
 
 /** @type {import('./$types').PageLoad} */
-export async function load() {
+export async function load({ params }) {
 	try {
-		const data = await fetch('/issuers', {
+		const data = await fetch(`/issuers/${params.id}`, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json'
@@ -19,7 +13,8 @@ export async function load() {
 		});
 
 		const jsonData = await data.json();
-		return { stocks: jsonData as Issuer[] };
+		console.log(jsonData);
+		return { stock: jsonData as Issuer[] };
 	} catch {
 		error(404, 'Not found');
 	}
