@@ -1,3 +1,9 @@
+pub mod actions;
+pub mod state;
+
+pub use actions::*;
+pub use state::*;
+
 use std::mem::size_of;
 
 use anchor_lang::prelude::*;
@@ -7,6 +13,10 @@ declare_id!("4kKhxNRFxnxXeYn1kfjkkzWpUW91rcuERgaV8qobhk3M");
 #[program]
 pub mod sira_on_solana {
     use super::*;
+
+    pub fn init(ctx: Context<Init>, bump: u8) -> Result<()> {
+        ctx.accounts.handle(bump)
+    }
 
     pub fn create_issuer(ctx: Context<CreateIssuer>, name: String, krs: String) -> Result<()> {
         let issuer: &mut Issuer = &mut ctx.accounts.issuer;

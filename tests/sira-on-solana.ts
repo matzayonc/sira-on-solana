@@ -4,9 +4,20 @@ import { SiraOnSolana } from "../target/types/sira_on_solana"
 import { Connection, Keypair, PublicKey } from "@solana/web3.js"
 import { assert } from "chai"
 import { BN } from "bn.js"
+import { program } from "@coral-xyz/anchor/dist/cjs/native/system"
 
 // @ts-ignore
 const signer = anchor.getProvider().wallet.publicKey
+
+describe("Pausing", () => {
+	anchor.setProvider(anchor.AnchorProvider.env())
+
+	const program = anchor.workspace.SiraOnSolana as Program<SiraOnSolana>
+
+	it("can pause", async () => {
+		const anchor = program.methods.in
+	})
+})
 
 describe("sira-on-solana", () => {
 	// Configure the client to use the local cluster.
