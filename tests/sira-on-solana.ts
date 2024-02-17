@@ -43,6 +43,7 @@ describe("sira-on-solana", () => {
 		assert.equal(issuers[0].account.name, name)
 		assert.equal(issuers[0].account.krs, krs)
 
+		// create a shareholder
 		const shareholder = Keypair.generate()
 		const holding = Keypair.generate()
 		const amount = 42
@@ -63,5 +64,46 @@ describe("sira-on-solana", () => {
 		assert.equal(shareholderAccount.amount.toNumber(), amount)
 		assert.ok(shareholderAccount.issuer.equals(issuer.publicKey))
 		assert.ok(shareholderAccount.owner.equals(shareholder.publicKey))
+
+		// create another shareholder
+		const anotherShareholder = Keypair.generate()
+		const anotherHolding = Keypair.generate()
+		const anotherAmount = 42
+		await program.methods
+			.createShareholder(
+				anotherShareholder.publicKey,
+				new BN(anotherAmount)
+			)
+			.accounts({
+				shareholder: anotherHolding.publicKey,
+				issuer: issuer.publicKey,
+				signer: signer.publicKey,
+			})
+			.signers([anotherHolding])
+			.rpc()
+
+		const anotherShareholderAccount =
+			await program.account.shareholder.fetch(anotherHolding.publicKey)
+
+		assert.equal(anotherShareholderAccount.amount.toNumber(), anotherAmount)
+		assert.ok(anotherShareholderAccount.issuer.equals(issuer.publicKey))
+		assert.ok(
+			anotherShareholderAccount.owner.equals(anotherShareholder.publicKey)
+		)
+
+		// fetch only the first shareholder
+		const firstStakeholder = await program.account.shareholder.all([
+			{
+				memcmp: {
+					offset: 8,
+					bytes: shareholder.publicKey.toBase58(),
+				},
+			},
+		])
+
+		assert.equal(firstStakeholder.length, 1)
+		assert.ok(
+			firstStakeholder[0].account.owner.equals(shareholder.publicKey)
+		)
 	})
 })
