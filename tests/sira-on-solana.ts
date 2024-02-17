@@ -45,7 +45,7 @@ describe("Issuing", () => {
 		const name = "DotWave"
 		const krs = "1234"
 		await program.methods
-			.createIssuer(name, krs, 1.2)
+			.createIssuer(name, krs, 1.2, false)
 			.accounts({
 				signer,
 				issuer: issuer.publicKey,
@@ -58,6 +58,9 @@ describe("Issuing", () => {
 		)
 		assert.equal(issuerAccount.name, name)
 		assert.equal(issuerAccount.krs, krs)
+		assert.equal(issuerAccount.emitted.toNumber(), 0)
+		assert.isFalse(issuerAccount.usingIsin)
+
 		const issuers = await program.account.issuer.all()
 		assert.equal(issuers.length, 1)
 		assert.equal(issuers[0].account.name, name)
@@ -112,13 +115,16 @@ describe("Issuing", () => {
 				state,
 			})
 			.rpc()
+
 		const anotherShareholderAccount =
 			await program.account.shareholder.fetch(anotherHolding)
 		assert.equal(anotherShareholderAccount.amount.toNumber(), anotherAmount)
+		assert.equal(anotherShareholderAccount.first.toNumber(), amount)
 		assert.ok(anotherShareholderAccount.issuer.equals(issuer.publicKey))
 		assert.ok(
 			anotherShareholderAccount.owner.equals(anotherShareholder.publicKey)
 		)
+
 		// fetch only the first shareholder
 		const firstStakeholder = await program.account.shareholder.all([
 			{
@@ -128,12 +134,21 @@ describe("Issuing", () => {
 				},
 			},
 		])
-
 		assert.equal(firstStakeholder.length, 1)
 		assert.ok(
 			firstStakeholder[0].account.owner.equals(shareholder.publicKey)
 		)
 
+		// check emitted after
+		const issuerAccountAfter = await program.account.issuer.fetch(
+			issuer.publicKey
+		)
+		assert.equal(
+			issuerAccountAfter.emitted.toNumber(),
+			amount + anotherAmount
+		)
+
+		// transfer
 		await program.methods
 			.transfer(new BN(4))
 			.accounts({
@@ -145,11 +160,18 @@ describe("Issuing", () => {
 			})
 			.signers([anotherShareholder])
 			.rpc()
+
+		const shareholderAccountAfterTransfer =
+			await program.account.shareholder.fetch(holding)
+		assert.equal(
+			shareholderAccountAfterTransfer.amount.toNumber(),
+			amount + 4
+		)
+		const anotherShareholderAccountAfterTransfer =
+			await program.account.shareholder.fetch(anotherHolding)
+		assert.equal(
+			anotherShareholderAccountAfterTransfer.amount.toNumber(),
+			amount - 4
+		)
 	})
 })
-function holdingsByOwner(
-	program: anchor.Program<SiraOnSolana>,
-	publicKey: anchor.web3.PublicKey
-) {
-	throw new Error("Function not implemented.")
-}

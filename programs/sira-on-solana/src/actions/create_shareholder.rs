@@ -33,9 +33,12 @@ impl<'info> CreateShareholder<'info> {
             owner: self.owner.key(),
             issuer: self.issuer.key(),
             amount,
+            first : self.issuer.emitted,
             locked: false,
             bump
         };
+
+        self.issuer.emitted += amount;
 
         Ok(())
     }

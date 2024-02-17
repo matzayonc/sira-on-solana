@@ -16,13 +16,21 @@ pub struct CreateIssuer<'info> {
 }
 
 impl<'info> CreateIssuer<'info> {
-    pub fn handle(&mut self, name: String, krs: String, value: f64) -> Result<()> {
+    pub fn handle(
+        &mut self,
+        name: String,
+        krs: String,
+        value: f64,
+        using_isin: bool,
+    ) -> Result<()> {
         require!(!self.state.paused, Errors::SystemIsPaused);
 
         *self.issuer = Issuer {
             name,
             krs,
             authority: self.signer.key(),
+            using_isin,
+            emitted: 0,
             value,
         };
 

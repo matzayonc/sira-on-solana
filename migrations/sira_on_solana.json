@@ -96,6 +96,10 @@
         {
           "name": "value",
           "type": "f64"
+        },
+        {
+          "name": "usingIsin",
+          "type": "bool"
         }
       ]
     },
@@ -262,6 +266,14 @@
             "type": "publicKey"
           },
           {
+            "name": "usingIsin",
+            "type": "bool"
+          },
+          {
+            "name": "emitted",
+            "type": "u64"
+          },
+          {
             "name": "value",
             "type": "f64"
           }
@@ -280,6 +292,10 @@
           {
             "name": "issuer",
             "type": "publicKey"
+          },
+          {
+            "name": "first",
+            "type": "u64"
           },
           {
             "name": "amount",
@@ -343,5 +359,8 @@
       "name": "DestinationIsLocked",
       "msg": "Destination account was locked by issuer"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "ALMDXSXjK3mRbEdNWiWTP74TtGgSUHQfq7nybADBxMTQ"
+  }
 }

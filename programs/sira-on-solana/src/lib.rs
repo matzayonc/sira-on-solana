@@ -7,7 +7,7 @@ pub use state::*;
 
 use anchor_lang::prelude::*;
 
-declare_id!("4kKhxNRFxnxXeYn1kfjkkzWpUW91rcuERgaV8qobhk3M");
+declare_id!("ALMDXSXjK3mRbEdNWiWTP74TtGgSUHQfq7nybADBxMTQ");
 
 #[program]
 pub mod sira_on_solana {
@@ -30,8 +30,9 @@ pub mod sira_on_solana {
         name: String,
         krs: String,
         value: f64,
+        using_isin: bool,
     ) -> Result<()> {
-        ctx.accounts.handle(name, krs, value)
+        ctx.accounts.handle(name, krs, value, using_isin)
     }
 
     pub fn create_shareholder(
