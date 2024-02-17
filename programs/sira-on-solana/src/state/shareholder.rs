@@ -5,4 +5,5 @@ pub struct Shareholder {
     pub owner: Pubkey,
     pub issuer: Pubkey,
     pub amount: u64,
+    pub locked: bool,
 }

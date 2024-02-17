@@ -68,43 +68,56 @@ describe("Issuing", () => {
 		assert.equal(issuers.length, 1)
 		assert.equal(issuers[0].account.name, name)
 		assert.equal(issuers[0].account.krs, krs)
+
 		// create a shareholder
 		const shareholder = Keypair.generate()
-		const holding = Keypair.generate()
+		const [holding, holdingBump] = await PublicKey.findProgramAddress(
+			[
+				anchor.utils.bytes.utf8.encode("holding"),
+				shareholder.publicKey.toBuffer(),
+			],
+			program.programId
+		)
 		const amount = 42
 		await program.methods
-			.createShareholder(shareholder.publicKey, new BN(amount))
+			.createShareholder(holdingBump, new BN(amount))
 			.accounts({
-				shareholder: holding.publicKey,
+				shareholder: holding,
 				issuer: issuer.publicKey,
 				signer: signer.publicKey,
+				owner: shareholder.publicKey,
 			})
-			.signers([holding])
 			.rpc()
 		const shareholderAccount = await program.account.shareholder.fetch(
-			holding.publicKey
+			holding
 		)
 		assert.equal(shareholderAccount.amount.toNumber(), amount)
 		assert.ok(shareholderAccount.issuer.equals(issuer.publicKey))
 		assert.ok(shareholderAccount.owner.equals(shareholder.publicKey))
+
 		// create another shareholder
 		const anotherShareholder = Keypair.generate()
-		const anotherHolding = Keypair.generate()
+		const [anotherHolding, anotherHoldingBump] =
+			await PublicKey.findProgramAddress(
+				[
+					anchor.utils.bytes.utf8.encode("holding"),
+					anotherShareholder.publicKey.toBuffer(),
+				],
+				program.programId
+			)
+
 		const anotherAmount = 42
 		await program.methods
-			.createShareholder(
-				anotherShareholder.publicKey,
-				new BN(anotherAmount)
-			)
+			.createShareholder(anotherHoldingBump, new BN(anotherAmount))
 			.accounts({
-				shareholder: anotherHolding.publicKey,
+				shareholder: anotherHolding,
 				issuer: issuer.publicKey,
 				signer: signer.publicKey,
+				owner: anotherShareholder.publicKey,
 			})
-			.signers([anotherHolding])
 			.rpc()
 		const anotherShareholderAccount =
-			await program.account.shareholder.fetch(anotherHolding.publicKey)
+			await program.account.shareholder.fetch(anotherHolding)
 		assert.equal(anotherShareholderAccount.amount.toNumber(), anotherAmount)
 		assert.ok(anotherShareholderAccount.issuer.equals(issuer.publicKey))
 		assert.ok(

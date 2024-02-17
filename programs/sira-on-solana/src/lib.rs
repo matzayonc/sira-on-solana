@@ -30,9 +30,9 @@ pub mod sira_on_solana {
 
     pub fn create_shareholder(
         ctx: Context<CreateShareholder>,
-        owner: Pubkey,
+        _bump: u8,
         amount: u64,
     ) -> Result<()> {
-        ctx.accounts.handle(owner, amount)
+        ctx.accounts.handle(amount)
     }
 }
