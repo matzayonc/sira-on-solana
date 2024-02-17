@@ -28,20 +28,20 @@
 			program.programId
 		);
 
-		await program.methods
-			.createShareholder(holdingBump, new BN(sharesToBuy))
-			.accounts({
-				shareholder: holding,
-				issuer: issuer.publicKey,
-				signer: signer.publicKey,
-				owner: shareholder.publicKey,
-				state
-			})
-			.rpc();
+		// await program.methods
+		// 	.createShareholder(holdingBump, new BN(sharesToBuy))
+		// 	.accounts({
+		// 		shareholder: holding,
+		// 		issuer: issuer.publicKey,
+		// 		signer: signer.publicKey,
+		// 		owner: shareholder.publicKey,
+		// 		state
+		// 	})
+		// 	.rpc();
 	};
 </script>
 
-<svelte:head><title>Tesla</title></svelte:head>
+<svelte:head><title>{stock.name}</title></svelte:head>
 
 <div>
 	<h1>Tesla</h1>
