@@ -9,57 +9,36 @@
 
 <svelte:head><title>Stocks</title></svelte:head>
 
-<main class="container mx-auto flex justify-center items-center">
-	<!-- <div class="w-2/3 mt-28">
-		<h1 class="text">Stocks</h1>
+<main class="container mx-auto flex flex-col justify-center items-center">
+	<div class="w-2/3 mt-28">
+		<h1 class="text-2xl mb-7 ml-5">Stocks</h1>
 
-		<ul class="">
-			<li>
-				<span>Ticker</span>
-				<span>Price</span>
+		<ul class="w-full border rounded-2xl drop-shadow-xl">
+			<li class="p-3 mb-2 grid-cols-4 rounded-3xl items-center text-center w-full grid">
+				<span>Name</span>
+				<span>Krs</span>
+				<span>Value</span>
 			</li>
 
 			{#each stocks as stock}
-				<li class="p-3 mb-2 border flex justify-between border-black rounded-3xl items-center">
+				<li class="p-3 mb-2 grid-cols-4 rounded-3xl items-center text-center w-full grid">
 					<span>{stock.name}</span>
-					<span>{stock.price}</span>
+					<span>{stock.krs}</span>
+					<span>{stock.value}</span>
 					<span
 						><a
 							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
-							href={`/stocks/${stock.id}`}>Details</a
+							href={`/stocks/${stock.public_key}`}>Details</a
 						></span
 					>
 				</li>
 			{/each}
 		</ul>
-	</div> -->
+	</div>
 
-	<table class="w-2/3 mt-40">
-		<thead>
-			<tr
-				class="p-3 mb-2 border flex justify-between border-black rounded-3xl items-center text-center"
-			>
-				<th>Stock</th>
-				<th>Krs</th>
-				<th>Value</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each stocks as stock}
-				<tr
-					class="p-3 mb-2 border border-black rounded-3xl items-center flex justify-between text-center"
-				>
-					<td>{stock.name}</td>
-					<td>{stock.krs}</td>
-					<td>{stock.value}</td>
-					<td
-						><a
-							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
-							href={`/stocks/${stock.public_key}`}>Details</a
-						></td
-					>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
+	<a
+		href="/stocks/create"
+		class="mt-12 inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
+		>Create new</a
+	>
 </main>
