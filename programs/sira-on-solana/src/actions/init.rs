@@ -10,7 +10,7 @@ pub struct Init<'info> {
     #[account(init, 
         payer = signer,
         space = 8 + size_of::<State>(), 
-        seeds = [b"state", signer.to_account_info().key.as_ref()], bump
+        seeds = [b"state"], bump
     )]
     pub state: Account<'info, State>,
     #[account(mut)]
@@ -19,7 +19,7 @@ pub struct Init<'info> {
 }
 
 
- impl<'info> Init<'info> {
+impl<'info> Init<'info> {
     pub fn handle(&mut self, bump: u8 ) -> Result<()> {
         *self.state = State {
             bump,
