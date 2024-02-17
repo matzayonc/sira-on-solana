@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import DecimalInput from '$components/Inputs/DecimalInput.svelte';
-	import { stocks } from '$src/db/db';
 	import { anchorStore } from '$src/stores/anchorStore';
 	import { walletStore } from '$src/stores/walletStore';
 	import { web3Store } from '$src/stores/web3Store';
@@ -9,9 +7,12 @@
 	import * as anchor from '@coral-xyz/anchor';
 	import { PublicKey, Transaction } from '@solana/web3.js';
 	import { get } from 'svelte/store';
+	import type { Issuer } from '../+page';
 
-	$: ({ params } = $page);
-	$: stock = params && params.id ? stocks[Number(params.id)] : stocks[0];
+	/** @type {import('./$types').PageData} */
+	export let data: any;
+
+	$: stock = data.stock as Issuer;
 
 	let sharesToBuy: number;
 
@@ -36,7 +37,7 @@
 				.createShareholder(holdingBump, new anchor.BN(10))
 				.accounts({
 					shareholder: holding,
-					issuer: new PublicKey('FgEinDLzidRHirdSKQzAERqBPKyBqjdWvjaE3QaARofd'),
+					issuer: stock.public_key,
 					signer: wallet.publicKey!,
 					owner: wallet.publicKey,
 					state: new PublicKey('7XvP4GS9aTWFukHc26AEv2ccUYGb1zY9Tq3paszh9K52')
@@ -57,7 +58,7 @@
 		<div class="mb-5 w-full mt-8">
 			<p>Ticker: {stock.name}</p>
 			<p>Name: Tesla</p>
-			<p>Krs: {stock.price}</p>
+			<p>Krs: {stock.krs}</p>
 		</div>
 
 		<DecimalInput bind:value={sharesToBuy} />
