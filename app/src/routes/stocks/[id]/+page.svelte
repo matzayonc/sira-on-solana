@@ -50,22 +50,20 @@
 
 <svelte:head><title>{stock.name}</title></svelte:head>
 
-<div>
-	<h1>Tesla</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>Stock</th>
-				<th>Price</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>{stock.name}</td>
-				<td>{stock.price}</td>
-				<td><DecimalInput bind:value={sharesToBuy} /></td>
-				<td><button onclick={onStockBuy}>Buy</button></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+<main class="container mx-auto flex justify-center items-center h-screen">
+	<div class="border rounded-3xl p-10 flex flex-col justify-between drop-shadow-lg items-center">
+		<h1 class="text-3xl">Tesla</h1>
+
+		<div class="mb-5 w-full mt-8">
+			<p>Ticker: {stock.name}</p>
+			<p>Name: Tesla</p>
+			<p>Krs: {stock.price}</p>
+		</div>
+
+		<DecimalInput bind:value={sharesToBuy} />
+		<button
+			class="mt-5 w-2/3 inline-block border-spacing-10 rounded-3xl py-3 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
+			onclick={onStockBuy}>Buy</button
+		>
+	</div>
+</main>
