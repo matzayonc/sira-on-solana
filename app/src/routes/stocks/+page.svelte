@@ -1,9 +1,10 @@
 <script lang="ts">
-	let stocks = [
-		{ id: 1, name: 'Apple', price: 150 },
-		{ id: 2, name: 'Google', price: 250 },
-		{ id: 3, name: 'Microsoft', price: 300 }
-	];
+	import type { Issuer } from './+page';
+
+	/** @type {import('./$types').PageData} */
+	export let data: any;
+
+	$: stocks = data.stocks as Issuer[];
 </script>
 
 <svelte:head><title>Stocks</title></svelte:head>
@@ -39,19 +40,22 @@
 				class="p-3 mb-2 border flex justify-between border-black rounded-3xl items-center text-center"
 			>
 				<th>Stock</th>
-				<th>Price</th>
-				<th></th>
+				<th>Krs</th>
+				<th>Value</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each stocks as stock}
-				<tr class="p-3 mb-2 border flex justify-between border-black rounded-3xl items-center">
+				<tr
+					class="p-3 mb-2 border border-black rounded-3xl items-center flex justify-between text-center"
+				>
 					<td>{stock.name}</td>
-					<td>{stock.price}</td>
+					<td>{stock.krs}</td>
+					<td>{stock.value}</td>
 					<td
 						><a
 							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
-							href={`/stocks/${stock.id}`}>Details</a
+							href={`/stocks/${stock.public_key}`}>Details</a
 						></td
 					>
 				</tr>
