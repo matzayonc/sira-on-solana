@@ -1,10 +1,11 @@
-// import type { Protocol } from '$src/utils/Idl/protocol';
+import type { SiraOnSolana } from '$src/utils/IDL/types/sira_on_solana';
+import { Program } from '@project-serum/anchor';
 import type { Connection } from '@solana/web3.js';
 import { writable } from 'svelte/store';
 
 export type IAnchorStore = {
 	connection: Connection;
-	// program: Program<Protocol>;
+	program: Program<SiraOnSolana>;
 	network: string;
 };
 
