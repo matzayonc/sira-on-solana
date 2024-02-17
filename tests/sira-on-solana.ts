@@ -128,6 +128,7 @@ describe("Issuing", () => {
 				},
 			},
 		])
+
 		assert.equal(firstStakeholder.length, 1)
 		assert.ok(
 			firstStakeholder[0].account.owner.equals(shareholder.publicKey)
@@ -146,3 +147,9 @@ describe("Issuing", () => {
 			.rpc()
 	})
 })
+function holdingsByOwner(
+	program: anchor.Program<SiraOnSolana>,
+	publicKey: anchor.web3.PublicKey
+) {
+	throw new Error("Function not implemented.")
+}
