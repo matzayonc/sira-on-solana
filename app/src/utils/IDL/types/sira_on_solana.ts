@@ -96,6 +96,10 @@ export type SiraOnSolana = {
         {
           "name": "value",
           "type": "f64"
+        },
+        {
+          "name": "usingIsin",
+          "type": "bool"
         }
       ]
     },
@@ -137,6 +141,10 @@ export type SiraOnSolana = {
         {
           "name": "bump",
           "type": "u8"
+        },
+        {
+          "name": "name",
+          "type": "string"
         },
         {
           "name": "amount",
@@ -262,6 +270,18 @@ export type SiraOnSolana = {
             "type": "publicKey"
           },
           {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "usingIsin",
+            "type": "bool"
+          },
+          {
+            "name": "emitted",
+            "type": "u64"
+          },
+          {
             "name": "value",
             "type": "f64"
           }
@@ -280,6 +300,18 @@ export type SiraOnSolana = {
           {
             "name": "issuer",
             "type": "publicKey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "first",
+            "type": "u64"
           },
           {
             "name": "amount",
@@ -444,6 +476,10 @@ export const IDL: SiraOnSolana = {
         {
           "name": "value",
           "type": "f64"
+        },
+        {
+          "name": "usingIsin",
+          "type": "bool"
         }
       ]
     },
@@ -485,6 +521,10 @@ export const IDL: SiraOnSolana = {
         {
           "name": "bump",
           "type": "u8"
+        },
+        {
+          "name": "name",
+          "type": "string"
         },
         {
           "name": "amount",
@@ -610,6 +650,18 @@ export const IDL: SiraOnSolana = {
             "type": "publicKey"
           },
           {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "usingIsin",
+            "type": "bool"
+          },
+          {
+            "name": "emitted",
+            "type": "u64"
+          },
+          {
             "name": "value",
             "type": "f64"
           }
@@ -628,6 +680,18 @@ export const IDL: SiraOnSolana = {
           {
             "name": "issuer",
             "type": "publicKey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "first",
+            "type": "u64"
           },
           {
             "name": "amount",

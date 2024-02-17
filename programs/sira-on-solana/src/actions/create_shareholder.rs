@@ -25,13 +25,18 @@ pub struct CreateShareholder<'info> {
 }
 
 impl<'info> CreateShareholder<'info> {
-    pub fn handle(&mut self, bump: u8, amount: u64) -> Result<()> {
+    pub fn handle(&mut self, bump: u8, name: String, amount: u64) -> Result<()> {
         require!(!self.state.paused, Errors::SystemIsPaused);
         require_eq!(self.issuer.authority, self.signer.key());
+
+        let clock = Clock::get()?;
+        let timestamp = clock.unix_timestamp;
 
         *self.shareholder = Shareholder {
             owner: self.owner.key(),
             issuer: self.issuer.key(),
+            timestamp,
+            name,
             amount,
             first : self.issuer.emitted,
             locked: false,

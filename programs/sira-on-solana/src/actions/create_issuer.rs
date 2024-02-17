@@ -25,10 +25,14 @@ impl<'info> CreateIssuer<'info> {
     ) -> Result<()> {
         require!(!self.state.paused, Errors::SystemIsPaused);
 
+        let clock = Clock::get()?;
+        let timestamp = clock.unix_timestamp;
+
         *self.issuer = Issuer {
             name,
             krs,
             authority: self.signer.key(),
+            timestamp,
             using_isin,
             emitted: 0,
             value,

@@ -1,6 +1,5 @@
 import { IDL, type SiraOnSolana } from '$src/utils/IDL/types/sira_on_solana';
-import { AnchorProvider } from '@coral-xyz/anchor';
-import { Program } from '@project-serum/anchor';
+import { AnchorProvider, Program } from '@coral-xyz/anchor';
 import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { writable } from 'svelte/store';
 

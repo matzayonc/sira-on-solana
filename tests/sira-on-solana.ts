@@ -77,7 +77,7 @@ describe("Issuing", () => {
 		)
 		const amount = 42
 		await program.methods
-			.createShareholder(holdingBump, new BN(amount))
+			.createShareholder(holdingBump, "Mirek", new BN(amount))
 			.accounts({
 				shareholder: holding,
 				issuer: issuer.publicKey,
@@ -106,7 +106,11 @@ describe("Issuing", () => {
 
 		const anotherAmount = 42
 		await program.methods
-			.createShareholder(anotherHoldingBump, new BN(anotherAmount))
+			.createShareholder(
+				anotherHoldingBump,
+				"Marek",
+				new BN(anotherAmount)
+			)
 			.accounts({
 				shareholder: anotherHolding,
 				issuer: issuer.publicKey,
