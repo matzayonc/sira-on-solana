@@ -2,7 +2,7 @@
 	import { IDL, type SiraOnSolana } from '$src/utils/IDL/types/sira_on_solana';
 	import { PROGRAM_ID, anchorStore } from '$stores/anchorStore';
 	import { walletStore, type WalletStore } from '$stores/walletStore';
-	import { AnchorProvider, Program } from '@project-serum/anchor';
+		import { AnchorProvider, Program } from '@coral-xyz/anchor';
 	import type { Commitment, ConnectionConfig } from '@solana/web3.js';
 	import { Connection, PublicKey } from '@solana/web3.js';
 

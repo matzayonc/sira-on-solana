@@ -8,7 +8,7 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	optimizeDeps: {
-		include: ['@project-serum/anchor', '@solana/web3.js', 'buffer']
+		include: ['@coral-xyz/anchor', '@solana/web3.js', 'buffer']
 		// ... use the same implementation from the SvelteKit ui
 	},
 	kit: {
