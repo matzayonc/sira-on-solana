@@ -133,16 +133,16 @@ describe("Issuing", () => {
 			firstStakeholder[0].account.owner.equals(shareholder.publicKey)
 		)
 
-		// transfer
-		// await program.methods
-		// 	.transfer(4)
-		// 	.accounts({
-		// 		state,
-		// 		shareholder: anotherHolding,
-		// 		destination: holding,
-		// 		signer: anotherShareholder.publicKey,
-		// 		owner: shareholder.publicKey,
-		// 	})
-		// 	.rpc()
+		await program.methods
+			.transfer(new BN(4))
+			.accounts({
+				state,
+				source: anotherHolding,
+				destination: holding,
+				signer: anotherShareholder.publicKey,
+				owner: shareholder.publicKey,
+			})
+			.signers([anotherShareholder])
+			.rpc()
 	})
 })
