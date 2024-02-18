@@ -54,7 +54,14 @@
 				.instruction()
 		);
 
-		await useSignAndSendTransaction(connection, wallet, tx, [issuer]);
+		try {
+			await useSignAndSendTransaction(connection, wallet, tx, [issuer]);
+			stockName = '';
+			krs = '';
+			value = 0;
+		} catch (error) {
+			console.log(error);
+		}
 	};
 </script>
 

@@ -52,7 +52,13 @@
 				.instruction()
 		);
 
-		await useSignAndSendTransaction(connection, wallet, tx);
+		try {
+			await useSignAndSendTransaction(connection, wallet, tx);
+			sharesToBuy = 0;
+			name = '';
+		} catch (error) {
+			console.error(error);
+		}
 	};
 </script>
 

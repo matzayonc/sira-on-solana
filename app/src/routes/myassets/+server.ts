@@ -1,6 +1,17 @@
 import { anchorStore } from '$stores/anchorStore';
 import { get } from 'svelte/store';
 
+export type MyAssetsResponse = {
+	owner_name: string;
+	paper_number_from: number;
+	paper_number_to: number;
+	isin: boolean;
+	paper_isin_number: number;
+	emission_date: string;
+	nominal_value: number;
+	issuer_key: string;
+};
+
 export async function GET({ url }) {
 	const owner = url.searchParams.get('owner');
 	if (!owner) {
