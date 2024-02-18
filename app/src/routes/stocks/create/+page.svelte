@@ -11,24 +11,25 @@
 
 	let stockName: string;
 	let krs: string;
+	let ticker: string;
 	let value: number;
 
-	// const onStateInit = async () => {
-	// 	const { program } = get(anchorStore);
-	// 	const { connection } = get(web3Store);
-	// 	const wallet = get(walletStore);
+	const onStateInit = async () => {
+		const { program } = get(anchorStore);
+		const { connection } = get(web3Store);
+		const wallet = get(walletStore);
 
-	// 	const [state, stateBump] = await PublicKey.findProgramAddress(
-	// 		[anchor.utils.bytes.utf8.encode('state')],
-	// 		program.programId
-	// 	);
+		const [state, stateBump] = await PublicKey.findProgramAddress(
+			[anchor.utils.bytes.utf8.encode('state')],
+			program.programId
+		);
 
-	// 	const tx = new Transaction();
+		const tx = new Transaction();
 
-	// 	tx.add(await program.methods.init(stateBump).accounts({ state }).instruction());
+		tx.add(await program.methods.init(stateBump).accounts({ state }).instruction());
 
-	// 	await useSignAndSendTransaction(connection, wallet, tx);
-	// };
+		await useSignAndSendTransaction(connection, wallet, tx);
+	};
 
 	const onIssuerInit = async () => {
 		const { program } = get(anchorStore);
@@ -45,7 +46,7 @@
 		const issuer = Keypair.generate();
 		tx.add(
 			await program.methods
-				.createIssuer(stockName, krs, value, false)
+				.createIssuer(stockName, krs, ticker, value, false)
 				.accounts({
 					signer: wallet.publicKey!,
 					issuer: issuer.publicKey,
@@ -75,6 +76,7 @@
 			<div class="space-y-5">
 				<Input placeholder="Stock Name" bind:value={stockName} />
 				<Input placeholder="KRS" bind:value={krs} />
+				<Input placeholder="Ticker" bind:value={ticker} />
 				<DecimalInput placeholder="Value" bind:value />
 			</div>
 
