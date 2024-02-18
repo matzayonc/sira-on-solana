@@ -94,6 +94,10 @@
           "type": "string"
         },
         {
+          "name": "ticker",
+          "type": "string"
+        },
+        {
           "name": "value",
           "type": "f64"
         },
@@ -238,6 +242,11 @@
           "isSigner": false
         },
         {
+          "name": "issuer",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "signer",
           "isMut": true,
           "isSigner": true
@@ -263,6 +272,10 @@
           },
           {
             "name": "krs",
+            "type": "string"
+          },
+          {
+            "name": "ticker",
             "type": "string"
           },
           {
@@ -374,9 +387,14 @@
       "code": 6004,
       "name": "DestinationIsLocked",
       "msg": "Destination account was locked by issuer"
+    },
+    {
+      "code": 6005,
+      "name": "DifferentIssuer",
+      "msg": "The destination account is not owned by the same issuer"
     }
   ],
   "metadata": {
-    "address": "HxcpLz2sBehJSEqp5vtUnzpHGWYrwXhCZGTPAunoHUZZ"
+    "address": "B3WE5AtVbdsAoC2iBjuz8wSBixi8njcJBRVxPW9HcQxX"
   }
 }

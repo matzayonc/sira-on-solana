@@ -7,7 +7,7 @@ pub use state::*;
 
 use anchor_lang::prelude::*;
 
-declare_id!("HxcpLz2sBehJSEqp5vtUnzpHGWYrwXhCZGTPAunoHUZZ");
+declare_id!("B3WE5AtVbdsAoC2iBjuz8wSBixi8njcJBRVxPW9HcQxX");
 
 #[program]
 pub mod sira_on_solana {

@@ -10,7 +10,7 @@ export type IAnchorStore = {
 	network: string;
 };
 
-export const PROGRAM_ID = new PublicKey('HxcpLz2sBehJSEqp5vtUnzpHGWYrwXhCZGTPAunoHUZZ');
+export const PROGRAM_ID = new PublicKey('B3WE5AtVbdsAoC2iBjuz8wSBixi8njcJBRVxPW9HcQxX');
 
 const unconnectedConnection = new Connection('https://api.devnet.solana.com');
 const unconnectedProvider = new AnchorProvider(
