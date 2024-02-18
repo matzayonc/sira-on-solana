@@ -12,7 +12,7 @@ pub struct CreateShareholder<'info> {
     #[account(init, 
         payer = signer, 
         space = 8 + size_of::<Issuer>(),
-        seeds = [b"holding", owner.key.as_ref()], bump
+        seeds = [b"holding", issuer.to_account_info().key.as_ref(), owner.key.as_ref()], bump
     )]
     pub shareholder: Account<'info, Shareholder>,
     #[account(mut)]

@@ -12,4 +12,6 @@ pub enum Errors {
     SourceIsLocked,
     #[msg("Destination account was locked by issuer")]
     DestinationIsLocked,
+    #[msg("The destination account is not owned by the same issuer")]
+    DifferentIssuer,
 }

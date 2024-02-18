@@ -38,6 +38,15 @@
 			program.programId
 		);
 
+		const [otherHolding, bump] = await PublicKey.findProgramAddressSync(
+			[
+				anchor.utils.bytes.utf8.encode('holding'),
+				// new PublicKey(stock.public_key).toBuffer(),
+				new PublicKey(destination).toBuffer()
+			],
+			program.programId
+		);
+
 		const tx = new Transaction();
 
 		tx.add(
@@ -46,9 +55,10 @@
 				.accounts({
 					state,
 					source: holding,
-					destination: new PublicKey(destination),
+					destination: otherHolding,
 					signer: wallet.publicKey,
-					owner: wallet.publicKey
+					// issuer: issuer.public_key
+					owner: new PublicKey(destination)
 				})
 				.instruction()
 		);

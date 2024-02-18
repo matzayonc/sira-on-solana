@@ -71,6 +71,7 @@ describe("Issuing", () => {
 		const [holding, holdingBump] = await PublicKey.findProgramAddress(
 			[
 				anchor.utils.bytes.utf8.encode("holding"),
+				issuer.publicKey.toBuffer(),
 				shareholder.publicKey.toBuffer(),
 			],
 			program.programId
@@ -99,6 +100,7 @@ describe("Issuing", () => {
 			await PublicKey.findProgramAddress(
 				[
 					anchor.utils.bytes.utf8.encode("holding"),
+					issuer.publicKey.toBuffer(),
 					anotherShareholder.publicKey.toBuffer(),
 				],
 				program.programId
@@ -161,6 +163,7 @@ describe("Issuing", () => {
 				destination: holding,
 				signer: anotherShareholder.publicKey,
 				owner: shareholder.publicKey,
+				issuer: issuer.publicKey,
 			})
 			.signers([anotherShareholder])
 			.rpc()
