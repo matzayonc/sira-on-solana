@@ -18,6 +18,7 @@
 				<span>Name</span>
 				<span>Krs</span>
 				<span>Value</span>
+				<span>Actions</span>
 			</li>
 
 			{#each stocks as stock}
@@ -25,12 +26,17 @@
 					<span>{stock.name}</span>
 					<span>{stock.krs}</span>
 					<span>{stock.value}</span>
-					<span
-						><a
+					<span>
+						<a
 							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
-							href={`/stocks/${stock.public_key}`}>Details</a
-						></span
-					>
+							href={`/stocks/${stock.public_key}`}>Buy</a
+						>
+
+						<a
+							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
+							href={`/registry/?issuer=${stock.public_key}`}>API</a
+						>
+					</span>
 				</li>
 			{/each}
 		</ul>
