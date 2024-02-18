@@ -36,7 +36,8 @@ export async function GET({ url }) {
 				isin: issuer.account.usingIsin,
 				paper_isin_number: s.account.amount.toNumber(),
 				emission_date: emissionDate.toISOString(),
-				nominal_value: s.account.amount.muln(issuer.account.value).toNumber()
+				nominal_value: s.account.amount.muln(issuer.account.value).toNumber(),
+				issuer_key: issuer.publicKey.toString()
 			};
 		})
 	);
