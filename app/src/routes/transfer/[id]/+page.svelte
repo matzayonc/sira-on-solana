@@ -149,17 +149,15 @@
 
 		<ul class="border rounded-2xl drop-shadow-xl">
 			<li class="p-3 mb-2 grid-cols-5 rounded-3xl items-center text-center w-full grid">
-				<span>Stock</span>
+				<span>Name</span>
 				<span>Value</span>
-				<span>First share number</span>
 				<span>Number of shares</span>
 			</li>
 
 			{#each registry as asset}
 				<li class="p-3 mb-2 grid-cols-5 rounded-3xl items-center text-center w-full grid">
-					<span>{asset.issuerName}</span>
+					<span>{asset.ownerName}</span>
 					<span>{asset.nominalValue} zł</span>
-					<span>{asset.paperNumberFrom + 1}</span>
 					<span>{asset.amount}</span>
 					<span>
 						<button
