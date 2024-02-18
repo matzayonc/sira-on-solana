@@ -17,7 +17,8 @@ export async function load() {
 				krs: v.issuer_krs_number,
 				name: v.issuer_name,
 				public_key: v.issuer_key,
-				value: v.nominal_value
+				value: v.nominal_value,
+				ticker: v.ticker
 			};
 		});
 

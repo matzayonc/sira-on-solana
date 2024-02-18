@@ -14,7 +14,8 @@
 		<h1 class="text-2xl mb-7 ml-5">Stocks</h1>
 
 		<ul class="w-full border rounded-2xl drop-shadow-xl">
-			<li class="p-3 mb-2 grid-cols-4 rounded-3xl items-center text-center w-full grid">
+			<li class="p-3 mb-2 grid-cols-5 rounded-3xl items-center text-center w-full grid">
+				<span>Ticker</span>
 				<span>Name</span>
 				<span>Krs</span>
 				<span>Value</span>
@@ -22,7 +23,8 @@
 			</li>
 
 			{#each stocks as stock}
-				<li class="p-3 mb-2 grid-cols-4 rounded-3xl items-center text-center w-full grid">
+				<li class="p-3 mb-2 grid-cols-5 rounded-3xl items-center text-center w-full grid">
+					<span>{stock.ticker}</span>
 					<span>{stock.name}</span>
 					<span>{stock.krs}</span>
 					<span>{stock.value} zł</span>

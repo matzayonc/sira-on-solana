@@ -4,4 +4,5 @@ export type Issuer = {
 	name: string;
 	public_key: string;
 	value: number;
+	ticker: string;
 };

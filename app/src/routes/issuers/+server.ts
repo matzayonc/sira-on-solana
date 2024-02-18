@@ -6,6 +6,7 @@ export interface IssuersResponse {
 	issuer_name: string;
 	issuer_krs_number: string;
 	nominal_value: number;
+	ticker: string;
 }
 
 export async function GET() {
@@ -19,7 +20,8 @@ export async function GET() {
 				issuer_key: a.publicKey.toString(),
 				issuer_name: a.account.name,
 				issuer_krs_number: a.account.krs,
-				nominal_value: a.account.value
+				nominal_value: a.account.value,
+				ticker: a.account.ticker
 			};
 		})
 	);

@@ -98,10 +98,10 @@
 	</div>
 
 	<div class="border rounded-3xl p-10 flex flex-col justify-between drop-shadow-lg items-center">
-		<h1 class="text-3xl">Buy</h1>
+		<h1 class="text-3xl">Issue</h1>
 
 		<div class="mb-5 w-full mt-8">
-			<p>Ticker: {stock.name}</p>
+			<p>Ticker: {stock.ticker}</p>
 			<p>Name: {stock.name}</p>
 			<p>Krs: {stock.krs}</p>
 			<p>Key: {showAddressContent(stock.public_key)}</p>
