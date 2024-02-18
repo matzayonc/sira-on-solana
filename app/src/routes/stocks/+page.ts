@@ -1,7 +1,8 @@
 import { error } from '@sveltejs/kit';
+import type { IssuersResponse } from '../issuers/+server';
 
 export type Issuer = {
-	authority: string;
+	// authority: string;
 	krs: string;
 	name: string;
 	public_key: string;
@@ -18,7 +19,15 @@ export async function load() {
 			}
 		});
 
-		const jsonData = await data.json();
+		const jsonData = (await data.json()).map((v: IssuersResponse) => {
+			return {
+				krs: v.issuer_krs_number,
+				name: v.issuer_name,
+				public_key: v.issuer_key,
+				value: v.nominal_value
+			};
+		});
+
 		return { stocks: jsonData as Issuer[] };
 	} catch {
 		error(404, 'Not found');

@@ -4,7 +4,7 @@ import { get } from 'svelte/store';
 export async function GET({ url }) {
 	const issuer = url.searchParams.get('issuer');
 	if (!issuer) {
-		return new Response('Missing owner', { status: 400 });
+		return new Response('Missing issuer', { status: 400 });
 	}
 
 	const { program } = get(anchorStore);
@@ -27,8 +27,8 @@ export async function GET({ url }) {
 				return new Response('Issuer not found', { status: 404 });
 			}
 
-			const emissionDate = new Date(s.account.timestamp.toNumber());
-			const registrationDate = new Date(issuer.account.timestamp.toNumber());
+			const emissionDate = new Date(s.account.timestamp.toNumber() * 1000);
+			const registrationDate = new Date(issuer.account.timestamp.toNumber() * 1000);
 
 			return {
 				issuer_name: issuer.account.name,

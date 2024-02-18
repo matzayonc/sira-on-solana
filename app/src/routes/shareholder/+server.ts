@@ -27,7 +27,7 @@ export async function GET({ url }) {
 				return new Response('Issuer not found', { status: 404 });
 			}
 
-			const emissionDate = new Date(issuer.account.timestamp.toNumber());
+			const emissionDate = new Date(issuer.account.timestamp.toNumber() * 1000);
 
 			return {
 				owner_name: s.account.name,
