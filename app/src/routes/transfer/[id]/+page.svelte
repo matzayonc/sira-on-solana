@@ -61,7 +61,7 @@
 					source: holding,
 					destination: otherHolding,
 					signer: wallet.publicKey,
-					issuer: issuer.public_key
+					issuer: stock.public_key,
 					owner: new PublicKey(destination)
 				})
 				.instruction()
