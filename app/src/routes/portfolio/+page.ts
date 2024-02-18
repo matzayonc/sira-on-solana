@@ -27,7 +27,9 @@ export async function load() {
 				ownerName: v.owner_name,
 				paperIsinNumber: v.paper_isin_number,
 				paperNumberFrom: v.paper_number_from,
-				paperNumberTo: v.paper_number_to
+				paperNumberTo: v.paper_number_to,
+				issuerName: v.issuer_name,
+				amount: v.number_of_shares
 			};
 		});
 

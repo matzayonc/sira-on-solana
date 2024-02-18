@@ -7,4 +7,6 @@ export type Asset = {
 	emissionDate: string;
 	nominalValue: number;
 	issuerKey: string;
+	issuerName: string;
+	amount: number;
 };

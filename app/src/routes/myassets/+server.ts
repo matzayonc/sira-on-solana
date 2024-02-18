@@ -10,6 +10,8 @@ export type MyAssetsResponse = {
 	emission_date: string;
 	nominal_value: number;
 	issuer_key: string;
+	issuer_name: string;
+	number_of_shares: number;
 };
 
 export async function GET({ url }) {
@@ -48,7 +50,9 @@ export async function GET({ url }) {
 				paper_isin_number: s.account.amount.toNumber(),
 				emission_date: emissionDate.toISOString(),
 				nominal_value: s.account.amount.muln(issuer.account.value).toNumber(),
-				issuer_key: issuer.publicKey.toString()
+				issuer_key: issuer.publicKey.toString(),
+				issuer_name: issuer.account.name,
+				number_of_shares: s.account.amount.toNumber()
 			};
 		})
 	);

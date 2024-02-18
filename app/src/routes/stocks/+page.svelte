@@ -25,7 +25,7 @@
 				<li class="p-3 mb-2 grid-cols-4 rounded-3xl items-center text-center w-full grid">
 					<span>{stock.name}</span>
 					<span>{stock.krs}</span>
-					<span>{stock.value}</span>
+					<span>{stock.value} zł</span>
 					<span>
 						<a
 							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
