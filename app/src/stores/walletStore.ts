@@ -20,6 +20,7 @@ import type {
 } from '@solana/web3.js';
 import { get, writable } from 'svelte/store';
 import { getLocalStorage, setLocalStorage } from '../utils/wallet/localStorage';
+import { invalidateAll } from '$app/navigation';
 
 interface Wallet {
 	adapter: Adapter;
@@ -98,6 +99,7 @@ async function autoConnect() {
 		// Don't throw error, but onError will still be called
 	} finally {
 		walletStore.setConnecting(false);
+		invalidateAll();
 	}
 }
 

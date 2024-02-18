@@ -1,17 +1,17 @@
-import { walletStore } from '$src/stores/walletStore';
 import type { Asset } from '$src/utils/types/asset';
 import { error } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import type { MyAssetsResponse } from '../myassets/+server';
+import { anchorStore } from '$src/stores/anchorStore';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-	const wallet = get(walletStore);
+	const publicKey = get(anchorStore).program.provider.publicKey;
 
-	console.log(wallet.publicKey);
-	if (!wallet.publicKey) return { assets: null };
+	console.log(publicKey);
+	if (!publicKey) return { assets: null };
 	try {
-		const data = await fetch(`/myassets/?owner=${wallet.publicKey}`, {
+		const data = await fetch(`/myassets/?owner=${publicKey}`, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json'

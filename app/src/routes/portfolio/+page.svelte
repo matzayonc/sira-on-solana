@@ -13,7 +13,7 @@
 
 <main class="container mx-auto flex flex-col justify-center items-center">
 	<div class="w-2/3 mt-28">
-		<h1 class="text-2xl mb-7 ml-5">Assest</h1>
+		<h1 class="text-2xl mb-7 ml-5">Assets</h1>
 
 		{#if assets === null}
 			<p class="text-center mt-40">Connect your wallet</p>
