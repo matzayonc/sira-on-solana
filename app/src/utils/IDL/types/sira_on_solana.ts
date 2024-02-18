@@ -94,6 +94,10 @@ export type SiraOnSolana = {
           "type": "string"
         },
         {
+          "name": "ticker",
+          "type": "string"
+        },
+        {
           "name": "value",
           "type": "f64"
         },
@@ -238,6 +242,11 @@ export type SiraOnSolana = {
           "isSigner": false
         },
         {
+          "name": "issuer",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "signer",
           "isMut": true,
           "isSigner": true
@@ -263,6 +272,10 @@ export type SiraOnSolana = {
           },
           {
             "name": "krs",
+            "type": "string"
+          },
+          {
+            "name": "ticker",
             "type": "string"
           },
           {
@@ -374,6 +387,11 @@ export type SiraOnSolana = {
       "code": 6004,
       "name": "DestinationIsLocked",
       "msg": "Destination account was locked by issuer"
+    },
+    {
+      "code": 6005,
+      "name": "DifferentIssuer",
+      "msg": "The destination account is not owned by the same issuer"
     }
   ]
 };
@@ -474,6 +492,10 @@ export const IDL: SiraOnSolana = {
           "type": "string"
         },
         {
+          "name": "ticker",
+          "type": "string"
+        },
+        {
           "name": "value",
           "type": "f64"
         },
@@ -618,6 +640,11 @@ export const IDL: SiraOnSolana = {
           "isSigner": false
         },
         {
+          "name": "issuer",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "signer",
           "isMut": true,
           "isSigner": true
@@ -643,6 +670,10 @@ export const IDL: SiraOnSolana = {
           },
           {
             "name": "krs",
+            "type": "string"
+          },
+          {
+            "name": "ticker",
             "type": "string"
           },
           {
@@ -754,6 +785,11 @@ export const IDL: SiraOnSolana = {
       "code": 6004,
       "name": "DestinationIsLocked",
       "msg": "Destination account was locked by issuer"
+    },
+    {
+      "code": 6005,
+      "name": "DifferentIssuer",
+      "msg": "The destination account is not owned by the same issuer"
     }
   ]
 };

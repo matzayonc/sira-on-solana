@@ -5,7 +5,7 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-sira_on_solana = "HxcpLz2sBehJSEqp5vtUnzpHGWYrwXhCZGTPAunoHUZZ"
+sira_on_solana = "B3WE5AtVbdsAoC2iBjuz8wSBixi8njcJBRVxPW9HcQxX"
 
 [registry]
 url = "https://api.apr.dev"
