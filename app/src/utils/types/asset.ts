@@ -1,4 +1,5 @@
 export type Asset = {
+	ownerKey: string;
 	ownerName: string;
 	paperNumberFrom: number;
 	paperNumberTo: number;

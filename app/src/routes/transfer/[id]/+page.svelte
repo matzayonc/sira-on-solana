@@ -5,6 +5,7 @@
 	import { anchorStore } from '$src/stores/anchorStore';
 	import { walletStore, type WalletStore } from '$src/stores/walletStore';
 	import { web3Store } from '$src/stores/web3Store';
+	import type { Asset } from '$src/utils/types/asset';
 	import type { Issuer } from '$src/utils/types/issuer';
 	import { useSignAndSendTransaction } from '$src/utils/wallet/useSignAndSendTx';
 	import * as anchor from '@coral-xyz/anchor';
@@ -15,6 +16,7 @@
 	export let data: any;
 
 	$: stock = data.stock as Issuer;
+	$: registry = data.registry as Asset[];
 
 	let destination: string;
 	let amountToTransfer: number;
@@ -71,7 +73,7 @@
 
 <svelte:head><title>{stock.name} - Transfer</title></svelte:head>
 
-<main class="container mx-auto flex justify-center items-center h-screen flex-col">
+<main class="container mx-auto flex justify-center items-center flex-col pt-40">
 	<div class="relative">
 		<div
 			class="absolute -top-16 -left-72 h-11 w-11 cursor-pointer items-center justify-center rounded-full text-[#782a88] hover:text-[#888888]"
@@ -126,5 +128,35 @@
 			class="mt-5 w-2/3 inline-block border-spacing-10 rounded-3xl py-3 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
 			onclick={onTransfer}>Transfer</button
 		>
+	</div>
+
+	<div class="w-2/3 mt-20 mb-10">
+		<h2 class="text-lg m-5">Registry</h2>
+
+		<ul class="border rounded-2xl drop-shadow-xl">
+			<li class="p-3 mb-2 grid-cols-5 rounded-3xl items-center text-center w-full grid">
+				<span>Stock</span>
+				<span>Value</span>
+				<span>First share number</span>
+				<span>Number of shares</span>
+			</li>
+
+			{#each registry as asset}
+				<li class="p-3 mb-2 grid-cols-5 rounded-3xl items-center text-center w-full grid">
+					<span>{asset.issuerName}</span>
+					<span>{asset.nominalValue} zł</span>
+					<span>{asset.paperNumberFrom + 1}</span>
+					<span>{asset.amount}</span>
+					<span>
+						<button
+							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
+							onclick={() => {
+								destination = asset.ownerKey;
+							}}>Copy to desitination</button
+						>
+					</span>
+				</li>
+			{/each}
+		</ul>
 	</div>
 </main>

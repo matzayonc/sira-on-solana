@@ -12,7 +12,6 @@ export async function load({ params }) {
 		});
 
 		const jsonData = await data.json();
-		console.log(jsonData);
 		return { stock: jsonData as Issuer[] };
 	} catch {
 		error(404, 'Not found');

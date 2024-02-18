@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import DecimalInput from '$components/Inputs/DecimalInput.svelte';
 	import Input from '$components/Inputs/Input.svelte';
 	import { anchorStore } from '$src/stores/anchorStore';
@@ -68,7 +69,30 @@
 <svelte:head><title>Create Stock</title></svelte:head>
 
 <div>
-	<main class="container mx-auto flex justify-center items-center h-screen">
+	<main class="container mx-auto flex justify-center items-center h-screen flex-col">
+		<div class="relative">
+			<div
+				class="absolute -top-16 -left-72 h-11 w-11 cursor-pointer items-center justify-center rounded-full text-[#782a88] hover:text-[#888888]"
+				onclick={() => goto('/stocks')}
+			>
+				<svg
+					class="h-6 w-6"
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 14 10"
+				>
+					<path
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M13 5H1m0 0 4 4M1 5l4-4"
+					/>
+				</svg>
+			</div>
+		</div>
+
 		<div class="border rounded-3xl p-10 flex flex-col justify-between drop-shadow-lg items-center">
 			<h1 class="text-3xl mb-10">Create Stock</h1>
 

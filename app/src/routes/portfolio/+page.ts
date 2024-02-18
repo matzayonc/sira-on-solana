@@ -1,8 +1,8 @@
+import { anchorStore } from '$src/stores/anchorStore';
 import type { Asset } from '$src/utils/types/asset';
 import { error } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import type { MyAssetsResponse } from '../myassets/+server';
-import { anchorStore } from '$src/stores/anchorStore';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
@@ -20,6 +20,7 @@ export async function load() {
 
 		const result = (await data.json()).map((v: MyAssetsResponse): Asset => {
 			return {
+				ownerKey: v.owner_key,
 				emissionDate: v.emission_date,
 				isin: v.isin,
 				issuerKey: v.issuer_key,

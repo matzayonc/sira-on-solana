@@ -2,6 +2,7 @@ import { anchorStore } from '$stores/anchorStore';
 import { get } from 'svelte/store';
 
 export type MyAssetsResponse = {
+	owner_key: string;
 	owner_name: string;
 	paper_number_from: number;
 	paper_number_to: number;
@@ -43,6 +44,7 @@ export async function GET({ url }) {
 			const emissionDate = new Date(issuer.account.timestamp.toNumber() * 1000);
 
 			return {
+				owner_key: s.publicKey.toString(),
 				owner_name: s.account.name,
 				paper_number_from: s.account.first.toNumber(),
 				paper_number_to: s.account.amount.add(s.account.first).toNumber(),

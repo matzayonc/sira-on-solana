@@ -31,6 +31,7 @@ export async function GET({ url }) {
 			const registrationDate = new Date(issuer.account.timestamp.toNumber() * 1000);
 
 			return {
+				owner_key: s.publicKey.toString(),
 				issuer_name: issuer.account.name,
 				registration_date: registrationDate.toISOString(),
 				owner_name: s.account.name,

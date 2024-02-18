@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import DecimalInput from '$components/Inputs/DecimalInput.svelte';
 	import Input from '$components/Inputs/Input.svelte';
 	import { anchorStore } from '$src/stores/anchorStore';
@@ -60,22 +61,49 @@
 			console.error(error);
 		}
 	};
+
+	const showAddressContent = (key: string) => {
+		return key.slice(0, 6) + '..' + key.slice(-6);
+	};
 </script>
 
 <svelte:head><title>{stock.name} - Transfer</title></svelte:head>
 
-<main class="container mx-auto flex justify-center items-center h-screen">
+<main class="container mx-auto flex justify-center items-center h-screen flex-col">
+	<div class="relative">
+		<div
+			class="absolute -top-16 -left-80 h-11 w-11 cursor-pointer items-center justify-center rounded-full text-[#782a88] hover:text-[#888888]"
+			onclick={() => goto('/stocks')}
+		>
+			<svg
+				class="h-6 w-6"
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 14 10"
+			>
+				<path
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M13 5H1m0 0 4 4M1 5l4-4"
+				/>
+			</svg>
+		</div>
+	</div>
+
 	<div class="border rounded-3xl p-10 flex flex-col justify-between drop-shadow-lg items-center">
-		<h1 class="text-3xl">{stock.name}</h1>
+		<h1 class="text-3xl">Buy</h1>
 
 		<div class="mb-5 w-full mt-8">
 			<p>Ticker: {stock.name}</p>
 			<p>Name: {stock.name}</p>
 			<p>Krs: {stock.krs}</p>
-			<p>Key: {stock.public_key}</p>
+			<p>Key: {showAddressContent(stock.public_key)}</p>
 		</div>
 
-		<DecimalInput bind:value={sharesToBuy} />
+		<DecimalInput bind:value={sharesToBuy} placeholder="Amount" />
 		<Input bind:value={name} placeholder="Name" />
 		<button
 			class="mt-5 w-2/3 inline-block border-spacing-10 rounded-3xl py-3 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"

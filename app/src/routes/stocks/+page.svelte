@@ -34,7 +34,8 @@
 
 						<a
 							class="inline-block rounded-xl py-2 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
-							href={`/registry/?issuer=${stock.public_key}`}>API</a
+							href={`/registry/?issuer=${stock.public_key}`}
+							target="_blank">API</a
 						>
 					</span>
 				</li>
