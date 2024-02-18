@@ -33,7 +33,7 @@
 		const [holding, _holdingBump] = await PublicKey.findProgramAddress(
 			[
 				anchor.utils.bytes.utf8.encode('holding'),
-				// new PublicKey(stock.public_key).toBuffer(),
+				new PublicKey(stock.public_key).toBuffer(),
 				wallet.publicKey.toBuffer()
 			],
 			program.programId
@@ -47,7 +47,7 @@
 		const [otherHolding, bump] = await PublicKey.findProgramAddressSync(
 			[
 				anchor.utils.bytes.utf8.encode('holding'),
-				// new PublicKey(stock.public_key).toBuffer(),
+				new PublicKey(stock.public_key).toBuffer(),
 				new PublicKey(destination).toBuffer()
 			],
 			program.programId
@@ -63,7 +63,7 @@
 					source: holding,
 					destination: otherHolding,
 					signer: wallet.publicKey,
-					// issuer: issuer.public_key
+					issuer: stock.public_key,
 					owner: new PublicKey(destination)
 				})
 				.instruction()

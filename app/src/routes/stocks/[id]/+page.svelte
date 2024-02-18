@@ -33,7 +33,11 @@
 		const ownerKey = new PublicKey(owner);
 
 		const [holding, holdingBump] = await PublicKey.findProgramAddress(
-			[anchor.utils.bytes.utf8.encode('holding'), ownerKey.toBuffer()],
+			[
+				anchor.utils.bytes.utf8.encode('holding'),
+				new PublicKey(stock.public_key).toBuffer(),
+				ownerKey.toBuffer()
+			],
 			program.programId
 		);
 

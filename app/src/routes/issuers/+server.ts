@@ -7,6 +7,7 @@ export interface IssuersResponse {
 	issuer_krs_number: string;
 	nominal_value: number;
 	ticker: string;
+	issued: number;
 }
 
 export async function GET() {
@@ -21,7 +22,8 @@ export async function GET() {
 				issuer_name: a.account.name,
 				issuer_krs_number: a.account.krs,
 				nominal_value: a.account.value,
-				ticker: a.account.ticker
+				ticker: a.account.ticker,
+				issued: a.account.emitted.toNumber()
 			};
 		})
 	);

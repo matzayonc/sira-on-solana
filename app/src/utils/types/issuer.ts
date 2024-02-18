@@ -5,4 +5,5 @@ export type Issuer = {
 	public_key: string;
 	value: number;
 	ticker: string;
+	issued: number;
 };
