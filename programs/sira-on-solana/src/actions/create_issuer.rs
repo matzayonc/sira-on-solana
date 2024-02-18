@@ -20,6 +20,7 @@ impl<'info> CreateIssuer<'info> {
         &mut self,
         name: String,
         krs: String,
+        ticker: String,
         value: f64,
         using_isin: bool,
     ) -> Result<()> {
@@ -31,6 +32,7 @@ impl<'info> CreateIssuer<'info> {
         *self.issuer = Issuer {
             name,
             krs,
+            ticker,
             authority: self.signer.key(),
             timestamp,
             using_isin,

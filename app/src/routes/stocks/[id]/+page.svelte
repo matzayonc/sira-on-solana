@@ -17,6 +17,7 @@
 
 	let sharesToBuy: number;
 	let name: string;
+	let owner: string;
 
 	const onStockBuy = async () => {
 		const { program } = get(anchorStore);
@@ -27,8 +28,11 @@
 			return;
 		}
 
+		// const owner = new PublicKey('3DaBobUvMs1oQSmSwy2HcZQDy5U3RWLvwoamz1cWkxXw');
+		const ownerKey = new PublicKey(owner);
+
 		const [holding, holdingBump] = await PublicKey.findProgramAddress(
-			[anchor.utils.bytes.utf8.encode('holding'), wallet.publicKey.toBuffer()],
+			[anchor.utils.bytes.utf8.encode('holding'), ownerKey.toBuffer()],
 			program.programId
 		);
 
@@ -46,7 +50,7 @@
 					shareholder: holding,
 					issuer: stock.public_key,
 					signer: wallet.publicKey!,
-					owner: wallet.publicKey,
+					owner: ownerKey,
 					state
 				})
 				.instruction()
@@ -77,9 +81,10 @@
 
 		<DecimalInput bind:value={sharesToBuy} />
 		<Input bind:value={name} placeholder="Name" />
+		<Input bind:value={owner} placeholder="Owner's Key" />
 		<button
 			class="mt-5 w-2/3 inline-block border-spacing-10 rounded-3xl py-3 px-6 text-sm font-medium bg-gradient-to-r from-[#782a88] to-[#4d626b] text-white shadow-2xl duration-200 ease-in hover:shadow-sky-300/50"
-			onclick={onStockBuy}>Buy</button
+			onclick={onStockBuy}>Issue</button
 		>
 	</div>
 </main>

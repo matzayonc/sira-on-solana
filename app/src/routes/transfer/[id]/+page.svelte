@@ -29,7 +29,11 @@
 		}
 
 		const [holding, _holdingBump] = await PublicKey.findProgramAddress(
-			[anchor.utils.bytes.utf8.encode('holding'), wallet.publicKey.toBuffer()],
+			[
+				anchor.utils.bytes.utf8.encode('holding'),
+				// new PublicKey(stock.public_key).toBuffer(),
+				wallet.publicKey.toBuffer()
+			],
 			program.programId
 		);
 

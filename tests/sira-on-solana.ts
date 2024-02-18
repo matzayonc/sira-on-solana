@@ -45,7 +45,7 @@ describe("Issuing", () => {
 		const name = "DotWave"
 		const krs = "1234"
 		await program.methods
-			.createIssuer(name, krs, 1.2, false)
+			.createIssuer(name, krs, "DTW", 1.2, false)
 			.accounts({
 				signer,
 				issuer: issuer.publicKey,

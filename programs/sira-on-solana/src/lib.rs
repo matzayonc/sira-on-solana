@@ -29,10 +29,11 @@ pub mod sira_on_solana {
         ctx: Context<CreateIssuer>,
         name: String,
         krs: String,
+        ticker: String,
         value: f64,
         using_isin: bool,
     ) -> Result<()> {
-        ctx.accounts.handle(name, krs, value, using_isin)
+        ctx.accounts.handle(name, krs, ticker, value, using_isin)
     }
 
     pub fn create_shareholder(

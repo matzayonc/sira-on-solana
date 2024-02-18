@@ -4,6 +4,7 @@ use anchor_lang::prelude::*;
 pub struct Issuer {
     pub name: String,
     pub krs: String,
+    pub ticker: String,
     pub authority: Pubkey,
     pub timestamp: i64,
     pub using_isin: bool,
