@@ -7,8 +7,6 @@ export async function GET({ params }) {
 
 	const issuer = await program.account.issuer.fetch(new PublicKey(params.id));
 
-	console.log(issuer);
-
 	const result = {
 		public_key: params.id,
 		...issuer

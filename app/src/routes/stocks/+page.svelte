@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Issuer } from './+page';
+	import type { Issuer } from '$src/utils/types/issuer';
 
 	/** @type {import('./$types').PageData} */
 	export let data: any;

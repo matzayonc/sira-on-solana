@@ -1,13 +1,6 @@
+import type { Issuer } from '$src/utils/types/issuer';
 import { error } from '@sveltejs/kit';
 import type { IssuersResponse } from '../issuers/+server';
-
-export type Issuer = {
-	// authority: string;
-	krs: string;
-	name: string;
-	public_key: string;
-	value: number;
-};
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
